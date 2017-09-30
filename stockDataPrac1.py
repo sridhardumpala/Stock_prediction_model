@@ -1,5 +1,5 @@
 import csv
-import numpy
+import numpy as np
 import matplotlib.pyplot as plt 
 from sklearn.svm import SVR
 
@@ -17,9 +17,9 @@ def get_data(filename):
 def predict_prices(dates, prices, x):
 	dates = np.reshape(dates, (len(dates), 1))
 
-	SVR_lin = SVR(kernel = 'linear', c=1e3)
-	SVR_poly = SVR(kernel = 'poly', c=1e3, degree = 2)
-	SVR_rbf = SVR(kernel = 'rbf', c=1e3, gamma = 0.1)
+	SVR_lin = SVR(kernel = 'linear', C=1e3)
+	SVR_poly = SVR(kernel = 'poly', C=1e3, degree = 2)
+	SVR_rbf = SVR(kernel = 'rbf', C=1e3, gamma = 0.1)
 	SVR_lin.fit(dates, prices)
 	SVR_poly.fit(dates, prices)
 	SVR_rbf.fit(dates, prices)
@@ -28,8 +28,8 @@ def predict_prices(dates, prices, x):
 	plt.plot(dates, SVR_rbf.predict(dates), color = 'red', label = 'RBF model')
 	plt.plot(dates, SVR_poly.predict(dates), color = 'green', label = 'Polynomial Model')
 	plt.plot(dates, SVR_lin.predict(dates), color = 'blue', label = 'Linear Model')
-	plt.xlable('Dates')
-	plt.xlable('Prices')
+	plt.xlabel('Dates')
+	plt.ylabel('Prices')
 	plt.title('Support Vector Regression')
 	plt.legend()
 	plt.show()
@@ -39,6 +39,6 @@ def predict_prices(dates, prices, x):
 
 get_data('/Users/sridhardumpala/Downloads/HistoricalQuotes.csv')
 
-predictedPrice = predict_price(dates, prices, 29)
+predictedPrice = predict_prices(dates, prices, 29)
 
-print(predict_price)
+print(predictedPrice)
